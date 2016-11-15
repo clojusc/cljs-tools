@@ -4,16 +4,26 @@
             [clojure.walk :as walk]
             #?@(:cljs [
             [goog.string :as gstring]
-            [goog.string.format]])))
+            [goog.string.format]]))
+  (:refer-clojure :exclude [format]))
 
-(defn now []
-  (js/Date.))
+#?(:clj
+  (def format #'clojure.core/format))
 
-(defn now-epoch []
-  (.getTime (now)))
+#?(:cljs
+  (def format #'gstring/format))
 
-(defn now-iso []
-  (.toISOString (now)))
+#?(:cljs
+  (defn now []
+    (js/Date.)))
+
+#?(:cljs
+  (defn now-epoch []
+    (.getTime (now))))
+
+#?(:cljs
+  (defn now-iso []
+    (.toISOString (now))))
 
 (defn dash->under [str]
   (string/replace str "-" "_"))
