@@ -11,19 +11,17 @@
   (def format #'clojure.core/format))
 
 #?(:cljs
-  (def format #'gstring/format))
+  (do
+    (def format #'gstring/format)
 
-#?(:cljs
-  (defn now []
-    (js/Date.)))
+    (defn now []
+      (js/Date.))
 
-#?(:cljs
-  (defn now-epoch []
-    (.getTime (now))))
+    (defn now-epoch []
+      (.getTime (now)))
 
-#?(:cljs
-  (defn now-iso []
-    (.toISOString (now))))
+    (defn now-iso []
+      (.toISOString (now)))))
 
 (defn dash->under [str]
   (string/replace str "-" "_"))
