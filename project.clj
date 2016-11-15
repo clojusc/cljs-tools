@@ -15,12 +15,14 @@
   :cljsbuild {
     :builds [
       {:id "cljs-tools"
+       :source-paths ["src"]
        :compiler
          {:main "cljs-tools.core"
           :asset-path "js/out"
           :output-to "resources/public/js/cljs_tools.js"
           :output-dir "resources/public/js"}}
       {:id "node"
+       :source-paths ["src"]
        :compiler
          {:target :nodejs
           :output-to "target/node/cljs_tools.js"
