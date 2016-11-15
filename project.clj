@@ -51,7 +51,7 @@
         :integration :integration}
       :source-paths ["test/clj"]}
     :dev {
-      :source-paths ["dev-resources/src/clj"]
+      :source-paths ["dev-resources/src"]
       :repl-options {:init-ns clojusc.cljs-tools.dev}
       :dependencies [
         [org.clojure/tools.namespace "0.2.11"
