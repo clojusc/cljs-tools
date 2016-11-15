@@ -1,4 +1,4 @@
-(ns clojusc.cljs-tools.core
+(ns clojusc.cljs-tools
   "General utility functions."
   (:require [clojure.string :as string]
             [clojure.walk :as walk]

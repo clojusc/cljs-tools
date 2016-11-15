@@ -2,7 +2,7 @@
   (:require [clojure.pprint :refer [print-table]]
             [clojure.reflect :refer [reflect]]
             [clojure.string :as string]
-            [clojusc.cljs-tools.core :as tools]))
+            [clojusc.cljs-tools :as tools]))
 
 (defn show-methods
   ""
