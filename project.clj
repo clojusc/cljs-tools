@@ -1,5 +1,5 @@
 (defproject clojusc/cljs-tools "0.1.0-SNAPSHOT"
-  :description "XXX"
+  :description "Useful functions for cljs-based projects"
   :url "https://github.com/clojusc/cljs-tools"
   :license
     {:name "Apache License, Version 2.0"

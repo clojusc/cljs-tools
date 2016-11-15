@@ -9,7 +9,7 @@
 
 [![][logo]][logo-large]
 
-*A holding pen for Clojurescript utility functions*
+*Useful functions for cljs-based projects*
 
 
 #### Contents
@@ -25,7 +25,7 @@
 $ make rhino-repl
 ```
 ```clj
-clojusc.cljs-tools.node-dev=> (require '[clojusc.cljs-tools.core :as tools])
+clojusc.cljs-tools.dev.rhino=> (require '[clojusc.cljs-tools.core :as tools])
 ```
 
 Then call a supported function:
