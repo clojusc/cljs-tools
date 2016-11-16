@@ -5,10 +5,22 @@
             #?@(:cljs [
             [goog.string :as gstring]
             [goog.string.format]]))
+  #?(:clj
+    (import [java.time LocalDateTime ZonedDateTime]))
   (:refer-clojure :exclude [format]))
 
 #?(:clj
-  (def format #'clojure.core/format))
+  (do
+    (def format #'clojure.core/format)
+
+    (defn now []
+      (LocalDateTime/now))
+
+    (defn now-epoch []
+      (.toEpochSecond (ZonedDateTime/now)))
+
+    (defn now-iso []
+      (str (now)))))
 
 #?(:cljs
   (do
