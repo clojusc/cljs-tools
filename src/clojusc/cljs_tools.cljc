@@ -6,7 +6,7 @@
             [goog.string :as gstring]
             [goog.string.format]]))
   #?(:clj
-    (import [java.time LocalDateTime ZonedDateTime]))
+    (import [org.joda.time LocalDateTime DateTime]))
   (:refer-clojure :exclude [format]))
 
 #?(:clj
@@ -17,7 +17,7 @@
       (LocalDateTime/now))
 
     (defn now-epoch []
-      (.toEpochSecond (ZonedDateTime/now)))
+      (long (/ (.getMillis (DateTime/now)) 1000)))
 
     (defn now-iso []
       (str (now)))))
