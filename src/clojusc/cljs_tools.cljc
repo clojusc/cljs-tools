@@ -75,3 +75,25 @@
                                              :check? check?))
                         (.keys js/Object data)))
         data))))
+
+#?(:cljs
+(defn console
+  [msg]
+  (try (pprint msg)
+    (catch :default ex ex))))
+
+#?(:cljs
+(defn get-named-element
+  [form-name]
+  (-> form-name
+      (js/document.getElementsByName)
+      (array-seq)
+      (first))))
+
+#?(:cljs
+(defn get-classed-element
+  [form-name]
+  (-> form-name
+      (js/document.getElementsByClassName)
+      (array-seq)
+      (first))))
