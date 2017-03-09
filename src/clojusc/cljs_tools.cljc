@@ -6,7 +6,7 @@
             [goog.string :as gstring]
             [goog.string.format]]))
   #?(:clj
-    (import [org.joda.time LocalDateTime DateTime]))
+    (:import [org.joda.time LocalDateTime DateTime]))
   (:refer-clojure :exclude [format]))
 
 #?(:clj
