@@ -1,4 +1,4 @@
-(defproject clojusc/cljs-tools "0.1.2"
+(defproject clojusc/cljs-tools "0.2.0-SNAPSHOT"
   :description "Useful functions for cljs-based projects"
   :url "https://github.com/clojusc/cljs-tools"
   :license
