@@ -6,10 +6,10 @@
      :url "http://www.apache.org/licenses/LICENSE-2.0"}
   :dependencies
     [[org.clojure/clojure "1.8.0"]
-     [org.clojure/clojurescript "1.9.293"]
-     [joda-time/joda-time "2.9.6"]]
+     [org.clojure/clojurescript "1.9.521"]
+     [joda-time/joda-time "2.9.9"]]
   :plugins
-    [[lein-cljsbuild "1.1.4"]]
+    [[lein-cljsbuild "1.1.6"]]
   :clean-targets ^{:protect false}
     ["resources/public/js"
      "target"]
@@ -46,7 +46,7 @@
     :test {
       :plugins [
         [jonase/eastwood "0.2.3" :exclusions [org.clojure/clojure]]
-        [lein-kibit "0.1.2" :exclusions [org.clojure/clojure]]]
+        [lein-kibit "0.1.5" :exclusions [org.clojure/clojure]]]
       :test-selectors {
         :default :unit
         :unit :unit
