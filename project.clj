@@ -43,6 +43,8 @@
        "dev-resources/scripts/browser-repl.clj"]
      }
   :profiles {
+    :uberjar {
+      :aot :all}
     :test {
       :plugins [
         [jonase/eastwood "0.2.3" :exclusions [org.clojure/clojure]]
