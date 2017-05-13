@@ -6,7 +6,7 @@
      :url "http://www.apache.org/licenses/LICENSE-2.0"}
   :dependencies
     [[org.clojure/clojure "1.8.0"]
-     [org.clojure/clojurescript "1.9.521"]
+     [org.clojure/clojurescript "1.9.542"]
      [joda-time/joda-time "2.9.9"]]
   :plugins
     [[lein-cljsbuild "1.1.6"]]
