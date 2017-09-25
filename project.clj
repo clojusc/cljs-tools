@@ -7,9 +7,9 @@
   :dependencies [
     [joda-time/joda-time "2.9.9"]
     [org.clojure/clojure "1.8.0"]
-    [org.clojure/clojurescript "1.9.542"]]
+    [org.clojure/clojurescript "1.9.908"]]
   :plugins [
-    [lein-cljsbuild "1.1.6"]]
+    [lein-cljsbuild "1.1.7"]]
   :clean-targets ^{:protect false}
     ["resources/public/js"
      "target"]
@@ -33,9 +33,9 @@
       :aot :all}
     :test {
       :plugins [
-        [jonase/eastwood "0.2.3" :exclusions [org.clojure/clojure]]
+        [jonase/eastwood "0.2.4" :exclusions [org.clojure/clojure]]
         [lein-kibit "0.1.5" :exclusions [org.clojure/clojure]]
-        [lein-ancient "0.6.10"]]
+        [lein-ancient "0.6.12"]]
       :test-selectors {
         :default :unit
         :unit :unit
