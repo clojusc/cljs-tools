@@ -4,6 +4,7 @@
   :license
     {:name "Apache License, Version 2.0"
      :url "http://www.apache.org/licenses/LICENSE-2.0"}
+  :exclusions [org.clojure/clojure]
   :dependencies [
     [joda-time/joda-time "2.9.9"]
     [org.clojure/clojure "1.8.0"]
@@ -28,6 +29,31 @@
          {:target :nodejs
           :output-to "target/node/cljs_tools.js"
           :output-dir "target/node"}}]}
+  :profiles {
+    :ubercompile {
+      :aot :all}
+    :test {
+      :test-selectors {
+        :default :unit
+        :unit :unit
+        :system :system
+        :integration :integration}
+      :source-paths ["test/clj"]
+      :dependencies [
+        [org.clojure/tools.namespace "0.2.11"]]
+      :plugins [
+        [jonase/eastwood "0.2.4"]
+        [lein-ancient "0.6.12"]
+        [lein-bikeshed "0.4.1"]
+        [lein-kibit "0.1.5"]
+        [lein-shell "0.5.0"]
+        [venantius/yagni "0.1.4"]]}
+    :dev {
+      :source-paths ["dev-resources/src"]
+      :repl-options {:init-ns clojusc.cljs-tools.dev}
+      :dependencies [
+        [org.clojure/tools.namespace "0.2.11"
+         :exclusions [org.clojure/clojure]]]}}
   :aliases {
     "rhino-repl"
       ^{:doc "Start a Rhino-based Clojurescript REPL"}
@@ -53,31 +79,11 @@
     "lint" [
       "with-profile" "+test" "do"
         ["check"] ["kibit"] ["outlaw"]]
-    "build"
-      ^{:doc "Perform build steps."}
-      ["do" ["check"] ["compile"] ["with-profile" "+ubercompile" "compile"]]}
-  :profiles {
-    :ubercompile {
-      :aot :all}
-    :test {
-      :test-selectors {
-        :default :unit
-        :unit :unit
-        :system :system
-        :integration :integration}
-      :source-paths ["test/clj"]
-      :dependencies [
-        [org.clojure/tools.namespace "0.2.11"]]
-      :plugins [
-        [jonase/eastwood "0.2.4"]
-        [lein-ancient "0.6.12"]
-        [lein-bikeshed "0.4.1"]
-        [lein-kibit "0.1.5"]
-        [lein-shell "0.5.0"]
-        [venantius/yagni "0.1.4"]]}
-    :dev {
-      :source-paths ["dev-resources/src"]
-      :repl-options {:init-ns clojusc.cljs-tools.dev}
-      :dependencies [
-        [org.clojure/tools.namespace "0.2.11"
-         :exclusions [org.clojure/clojure]]]}})
+    "build" ["with-profile" "+test" "do"
+      ["check-deps"]
+      ["lint"]
+      ["test"]
+      ["compile"]
+      ["ubercompile"]
+      ["clean"]
+      ["uberjar"]]})
