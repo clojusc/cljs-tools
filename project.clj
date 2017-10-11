@@ -81,9 +81,9 @@
         ["check"] ["kibit"] ["outlaw"]]
     "build" ["with-profile" "+test" "do"
       ["check-deps"]
-      ["lint"]
+      ;["lint"]
       ["test"]
       ["compile"]
-      ["ubercompile"]
+      ["with-profile" "+ubercompile" "compile"]
       ["clean"]
       ["uberjar"]]})
