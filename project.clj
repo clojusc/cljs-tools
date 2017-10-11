@@ -28,7 +28,8 @@
        :compiler
          {:target :nodejs
           :output-to "target/node/cljs_tools.js"
-          :output-dir "target/node"}}]}
+          :output-dir "target/node"
+          :main clojusc.cljs-tools}}]}
   :profiles {
     :ubercompile {
       :aot :all}
