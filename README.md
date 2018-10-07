@@ -41,7 +41,7 @@ accessing the enviroinment).
 
 ## License [&#x219F;](#contents)
 
-Copyright © 2016, Clojure-Aided Enrichment Center
+Copyright © 2016-2018, Clojure-Aided Enrichment Center
 
 Copyright © 2016, Element 84, Inc.
 
