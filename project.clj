@@ -4,13 +4,12 @@
   :license
     {:name "Apache License, Version 2.0"
      :url "http://www.apache.org/licenses/LICENSE-2.0"}
-  :exclusions [org.clojure/clojure]
-  :dependencies [
-    [joda-time/joda-time "2.9.9"]
-    [org.clojure/clojure "1.8.0"]
-    [org.clojure/clojurescript "1.9.946"]]
+  :dependencies
+    [[joda-time/joda-time "2.10"]
+     [org.clojure/clojure "1.9.0"]
+     [org.clojure/clojurescript "1.10.339"]]
   :plugins [
-    [lein-cljsbuild "1.1.7"]]
+     [lein-cljsbuild "1.1.7"]]
   :clean-targets ^{:protect false}
     ["resources/public/js"
      "target"]
