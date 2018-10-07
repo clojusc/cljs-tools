@@ -40,6 +40,7 @@
         [lein-ancient "0.6.15"]
         [lein-bikeshed "0.5.1"]
         [lein-kibit "0.1.6"]
+        [lein-shell "0.5.0"]
         [venantius/yagni "0.1.6"]]}
     :dev {
       :source-paths ["dev-resources/src"]
@@ -52,8 +53,7 @@
       :dependencies [
         [org.clojure/tools.namespace "0.2.11"]]
       :plugins [
-        [lein-ltest "0.3.0"]
-        [lein-shell "0.5.0"]]
+        [lein-ltest "0.3.0"]]
       :source-paths ["test/clj"]
       :test-selectors {
         :default :unit
@@ -78,6 +78,7 @@
     "repl" ["do"
       ["clean"]
       ["repl"]]
+    "ubercompile" ["with-profile" "+ubercompile" "compile"]
     ;; Linting and tests
     "check-vers" ["with-profile" "+lint" "ancient" "check" ":all"]
     "check-jars" ["with-profile" "+lint" "do"
@@ -96,10 +97,10 @@
       ]
     "ltest" ["with-profile" "+test" "ltest"]
     ;; Build
-    "build"
-      ^{:doc "Perform build steps."}
-      ["do" ["check"]
-            ["compile"]
-            ["with-profile" "+ubercompile" "compile"]
-            ["clean"]
-            ["uberjar"]]})
+    "build" ^{:doc "Perform build steps."} ["do"
+      ["clean"]
+      ["ubercompile"]
+      ["check-vers"]
+      ;["lint"]
+      ["ltest"]
+      ["uberjar"]]})
