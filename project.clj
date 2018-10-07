@@ -1,16 +1,15 @@
-(defproject clojusc/cljs-tools "0.2.0"
+(defproject clojusc/cljs-tools "0.2.1"
   :description "Useful functions for cljs-based projects"
   :url "https://github.com/clojusc/cljs-tools"
   :license
     {:name "Apache License, Version 2.0"
      :url "http://www.apache.org/licenses/LICENSE-2.0"}
-  :exclusions [org.clojure/clojure]
-  :dependencies [
-    [joda-time/joda-time "2.9.9"]
-    [org.clojure/clojure "1.8.0"]
-    [org.clojure/clojurescript "1.9.946"]]
+  :dependencies
+    [[joda-time/joda-time "2.10"]
+     [org.clojure/clojure "1.9.0"]
+     [org.clojure/clojurescript "1.10.339"]]
   :plugins [
-    [lein-cljsbuild "1.1.7"]]
+     [lein-cljsbuild "1.1.7"]]
   :clean-targets ^{:protect false}
     ["resources/public/js"
      "target"]
@@ -33,29 +32,36 @@
   :profiles {
     :ubercompile {
       :aot :all}
+    :lint {
+      :source-paths ^:replace ["src"]
+      :test-paths ^:replace []
+      :plugins [
+        [jonase/eastwood "0.3.1"]
+        [lein-ancient "0.6.15"]
+        [lein-bikeshed "0.5.1"]
+        [lein-kibit "0.1.6"]
+        [lein-shell "0.5.0"]
+        [venantius/yagni "0.1.6"]]}
+    :dev {
+      :source-paths ["dev-resources/src"]
+      :repl-options {
+        :init-ns clojusc.cljs-tools.dev}
+      :dependencies [
+        [org.clojure/tools.namespace "0.2.11"]]}
     :test {
+      :aot :all
+      :dependencies [
+        [org.clojure/tools.namespace "0.2.11"]]
+      :plugins [
+        [lein-ltest "0.3.0"]]
+      :source-paths ["test/clj"]
       :test-selectors {
         :default :unit
         :unit :unit
         :system :system
-        :integration :integration}
-      :source-paths ["test/clj"]
-      :dependencies [
-        [org.clojure/tools.namespace "0.2.11"]]
-      :plugins [
-        [jonase/eastwood "0.2.4"]
-        [lein-ancient "0.6.12"]
-        [lein-bikeshed "0.4.1"]
-        [lein-kibit "0.1.5"]
-        [lein-shell "0.5.0"]
-        [venantius/yagni "0.1.4"]]}
-    :dev {
-      :source-paths ["dev-resources/src"]
-      :repl-options {:init-ns clojusc.cljs-tools.dev}
-      :dependencies [
-        [org.clojure/tools.namespace "0.2.11"
-         :exclusions [org.clojure/clojure]]]}}
+        :integration :integration}}}
   :aliases {
+    ;; CLJS aliases
     "rhino-repl"
       ^{:doc "Start a Rhino-based Clojurescript REPL"}
       ["trampoline" "run" "-m" "clojure.main"
@@ -68,23 +74,33 @@
       ^{:doc "Start a browser-based Clojurescript REPL"}
       ["trampoline" "run" "-m" "clojure.main"
        "dev-resources/scripts/browser-repl.clj"]
-    "check-deps" [
-      "with-profile" "+test" "ancient" "check" ":all"]
-    "kibit" [
-      "with-profile" "+test" "do"
-        ["shell" "echo" "== Kibit =="]
-        ["kibit"]]
-    "outlaw" [
-      "with-profile" "+test"
-      "eastwood" "{:namespaces [:source-paths] :source-paths [\"src\"]}"]
-    "lint" [
-      "with-profile" "+test" "do"
-        ["check"] ["kibit"] ["outlaw"]]
-    "build" ["with-profile" "+test" "do"
-      ["check-deps"]
-      ;["lint"]
-      ["test"]
-      ["compile"]
-      ["with-profile" "+ubercompile" "compile"]
+    ;; CLJ Aliases
+    "repl" ["do"
       ["clean"]
+      ["repl"]]
+    "ubercompile" ["with-profile" "+ubercompile" "compile"]
+    ;; Linting and tests
+    "check-vers" ["with-profile" "+lint" "ancient" "check" ":all"]
+    "check-jars" ["with-profile" "+lint" "do"
+      ["deps" ":tree"]
+      ["deps" ":plugin-tree"]]
+    "check-deps" ["do"
+      ["check-jars"]
+      ["check-vers"]]
+    "kibit" ["with-profile" "+lint" "do"
+      ["shell" "echo" "== Kibit =="]
+      ["kibit"]]
+    "eastwood" ["with-profile" "+lint" "eastwood" "{:namespaces [:source-paths]}"]
+    "lint" ["do"
+      ["kibit"]
+      ;["eastwood"]
+      ]
+    "ltest" ["with-profile" "+test" "ltest"]
+    ;; Build
+    "build" ^{:doc "Perform build steps."} ["do"
+      ["clean"]
+      ["ubercompile"]
+      ["check-vers"]
+      ;["lint"]
+      ["ltest"]
       ["uberjar"]]})
