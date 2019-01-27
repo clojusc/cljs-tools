@@ -1,13 +1,18 @@
-(defproject clojusc/cljs-tools "0.2.2-SNAPSHOT"
+(defproject clojusc/cljs-tools "0.2.2"
   :description "Useful functions for cljs-based projects"
   :url "https://github.com/clojusc/cljs-tools"
   :license
     {:name "Apache License, Version 2.0"
      :url "http://www.apache.org/licenses/LICENSE-2.0"}
+  :exclusions [
+    [com.google.code.findbugs/jsr305]
+    [com.google.errorprone/error_prone_annotations]]
   :dependencies
-    [[joda-time/joda-time "2.10"]
-     [org.clojure/clojure "1.9.0"]
-     [org.clojure/clojurescript "1.10.339"]]
+    [[com.google.code.findbugs/jsr305 "3.0.2"]
+     [com.google.errorprone/error_prone_annotations "2.3.2"]
+     [joda-time/joda-time "2.10.1"]
+     [org.clojure/clojure "1.10.0"]
+     [org.clojure/clojurescript "1.10.439"]]
   :plugins [
      [lein-cljsbuild "1.1.7"]]
   :clean-targets ^{:protect false}
@@ -36,12 +41,10 @@
       :source-paths ^:replace ["src"]
       :test-paths ^:replace []
       :plugins [
-        [jonase/eastwood "0.3.1"]
+        [jonase/eastwood "0.3.5"]
         [lein-ancient "0.6.15"]
-        [lein-bikeshed "0.5.1"]
         [lein-kibit "0.1.6"]
-        [lein-shell "0.5.0"]
-        [venantius/yagni "0.1.6"]]}
+        [lein-shell "0.5.0"]]}
     :dev {
       :source-paths ["dev-resources/src"]
       :repl-options {
@@ -97,10 +100,14 @@
       ]
     "ltest" ["with-profile" "+test" "ltest"]
     ;; Build
+    "cljs" ["cljsbuild" "once" "cljs-tools"]
+    "cljs-node" ["cljsbuild" "once" "node"]
     "build" ^{:doc "Perform build steps."} ["do"
       ["clean"]
       ["ubercompile"]
       ["check-vers"]
       ;["lint"]
       ["ltest"]
-      ["uberjar"]]})
+      ["uberjar"]
+      ["cljs"]
+      ["cljs-node"]]})
